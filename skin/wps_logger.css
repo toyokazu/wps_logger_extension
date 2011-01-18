@@ -1,0 +1,25 @@
+#wifi_monitor_button
+{
+  list-style-image: url("chrome://wps_logger/skin/wifi24.png");
+  /* -moz-box-orient: vertical; */
+}
+
+toolbar[iconsize="small"] #wifi_monitor_button > .toolbarbutton-icon
+{
+  list-style-image: url("chrome://wps_logger/skin/wifi16.png");
+  width: 16px;
+  height: 16px;
+}
+
+#gpsd_monitor_button
+{
+  list-style-image: url("chrome://wps_logger/skin/gps24.png");
+  /* -moz-box-orient: vertical; */
+}
+
+toolbar[iconsize="small"] #gpsd_monitor_button > .toolbarbutton-icon
+{
+  list-style-image: url("chrome://wps_logger/skin/gps16.png");
+  width: 16px;
+  height: 16px;
+}

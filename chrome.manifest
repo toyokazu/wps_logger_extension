@@ -1,0 +1,4 @@
+content   wps_logger    content/wps_logger/
+skin      wps_logger    classic/1.0   skin/
+overlay chrome://browser/content/browser.xul chrome://wps_logger/content/wps_logger_toolbar.xul
+style chrome://global/content/customizeToolbar.xul chrome://wps_logger/skin/wps_logger.css

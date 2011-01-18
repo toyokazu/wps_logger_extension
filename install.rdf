@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>wps_logger@toyokazu.github.com</em:id>   <!-- 拡張機能ごとにUUIDを生成(*) -->
+    <em:version>0.01</em:version>  <!-- 拡張機能のバージョン -->
+    <em:type>2</em:type>  <!-- 2:拡張機能、4:テーマ、8:ロケール、16:プラグイン、32:... -->
+   
+    <!-- Target Application this extension can install into, 
+         with minimum and maximum supported versions. --> 
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>  <!-- Firefox固有のUUID -->
+        <em:minVersion>3.6.0</em:minVersion>
+        <em:maxVersion>3.6.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <!-- Front End MetaData -->    <!-- 拡張機能の説明(人間用) -->
+    <em:name>WPS Logger Extension</em:name>
+    <em:description>An extension to monitor WiFi RSSI and GPSD outputs.</em:description>
+    <em:creator>toyokazu@gmail.com</em:creator>
+    <!--em:homepageURL>http://dev.ariel-networks.com/</em:homepageURL-->
+  </Description>      
+</RDF>
+
