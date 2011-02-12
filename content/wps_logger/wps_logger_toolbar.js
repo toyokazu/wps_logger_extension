@@ -161,8 +161,8 @@ GPSDMonitor.prototype = {
         var json = s_input_stream.read(count);
 
         jsons = json.match(/({"class":[^\r]+})\r\n/);
-        for (var str in jsons) {
-          str = str.replace("\r\n", "");
+        for (var i = 0; i < jsons.length; i++) {
+          str = jsons[i].replace("\r\n", "");
           data = JSON.parse(str);
           if (data["class"] == "TPV") {
             this.gpsd_listener.update(str);
