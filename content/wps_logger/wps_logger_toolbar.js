@@ -147,7 +147,7 @@ GPSDMonitor.prototype = {
     this.output_stream = this.transport.openOutputStream(0,0,0);
     this.input_stream = this.transport.openInputStream(0,0,0);
 
-    var command = "?WATCH={\"enable\":true,\"json\":true}\n";
+    var command = "?WATCH={\"enable\":true,\"json\":true,\"nmea\":true}\n";
     this.output_stream.write(command, command.length);
 
     var data_listener = {
