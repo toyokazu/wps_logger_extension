@@ -161,13 +161,13 @@ GPSDMonitor.prototype = {
         var json = s_input_stream.read(count);
 
         jsons = json.match(/({"class":[^\r]+})\r\n/);
-        jsons.each(function(str) {
-            str = str.replace("\r\n", "");
-            data = JSON.parse(str);
-            if (data["class"] == "TPV") {
+        for (var str in jsons) {
+          str = str.replace("\r\n", "");
+          data = JSON.parse(str);
+          if (data["class"] == "TPV") {
             this.gpsd_listener.update(str);
-            }
-            });
+          }
+        }
       }
     };
 
