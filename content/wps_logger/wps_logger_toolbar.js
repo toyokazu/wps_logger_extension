@@ -51,6 +51,7 @@ function WifiMonitor() {
   this.prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch).QueryInterface(Ci.nsIPrefService);
   this.prefService.setCharPref("wps_logger.wifi.elem", "wifi_towers");
   this.prefService.setBoolPref("wps_logger.wifi.auto_submit", false);
+  this.wifi_listener = null;
 };
 
 WifiMonitor.prototype = {
@@ -82,8 +83,8 @@ WifiMonitor.prototype = {
     this.wifi_listener = null;
   },
   restartWatching: function() {
-    this.stopWatching(this.wifi_listener);
-    this.startWatching(this.wifi_listener);
+    this.stopWatching();
+    this.startWatching();
   },
 };
 
@@ -110,6 +111,7 @@ function GPSDMonitor() {
   this.prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch).QueryInterface(Ci.nsIPrefService);
   this.prefService.setCharPref("wps_logger.gpsd.elem", "gpsd_tpv");
   this.prefService.setBoolPref("wps_logger.gpsd.auto_submit", false);
+  this.gpsd_listener = null;
 };
 
 GPSDMonitor.prototype = {
@@ -181,12 +183,13 @@ GPSDMonitor.prototype = {
     this.output_stream.close();
     this.input_stream.close();
     this.transport.close(Components.results.NS_OK);
+    this.gpsd_listener = null;
   },
 
   //
   restartWatching: function() {
-    this.stopWatching(this.gpsd_listener);
-    this.startWatching(this.gpsd_listener);
+    this.stopWatching();
+    this.startWatching();
   },
 };
 
