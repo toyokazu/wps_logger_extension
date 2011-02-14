@@ -152,6 +152,7 @@ GPSDMonitor.prototype = {
     var command = "?WATCH={\"enable\":true,\"json\":true,\"nmea\":true}\n";
     this.output_stream.write(command, command.length);
 
+    var gpsd_listener = this.gpsd_listener;
     var data_listener = {
       onStartRequest: function(request, context) {},
       onStopRequest: function(request, context, status) {},
@@ -163,11 +164,13 @@ GPSDMonitor.prototype = {
         var json = s_input_stream.read(count);
 
         jsons = json.match(/({"class":[^\r]+})\r\n/);
-        for (var i = 0; i < jsons.length; i++) {
-          str = jsons[i].replace("\r\n", "");
-          data = JSON.parse(str);
-          if (data["class"] == "TPV") {
-            this.gpsd_listener.update(str);
+        if (jsons != null) {
+          for (var i = 0; i < jsons.length; i++) {
+            str = jsons[i].replace("\r\n", "");
+            data = JSON.parse(str);
+            if (data["class"] == "TPV") {
+              gpsd_listener.update(str);
+            }
           }
         }
       }
