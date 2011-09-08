@@ -1,0 +1,12 @@
+<!ENTITY CertValidate.label "Your localized menuitem">
+
+<!ENTITY CertValidateContext.label "Your Menuitem">
+<!ENTITY CertValidateContext.accesskey "Y">
+
+<!ENTITY CertValidateToolbarButton.label "Your Toolbar Button">
+<!ENTITY CertValidateToolbarButton.tooltip "This is your toolbar button!">
+
+<!ENTITY CertValidateSidebar.label "Your Sidebar">
+
+<!ENTITY CertValidateToolbar.name  "WpsLogger Toolbar">
+<!ENTITY CertValidateToolbar.label "&CertValidateToolbar.name;">

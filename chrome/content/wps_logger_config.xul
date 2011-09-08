@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+<!DOCTYPE prefwindow SYSTEM "chrome://wps_logger/locale/config.dtd">
+
+<!-- Configuration Window -->
+<prefwindow id="wps_logger-preferences" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" title="&prefwindow.title;">
+
+  <!-- wifi monitoring configuration -->
+  <prefpane id="pane1" label="&pane1.title;" flex="1">
+    <preferences>
+      <preference id="wifi.elem" name="extensions.wps_logger.wifi.elem" type="string"/>
+      <preference id="wifi.auto_submit" name="extensions.wps_logger.wifi.auto_submit" type="bool"/>
+      <preference id="wifi.debug" name="extensions.wps_logger.wifi.debug" type="bool"/>
+    </preferences>
+
+    <!-- wifi monitoring configuration UI -->
+    <label accesskey="&wifi.elem.accesskey;" control="textWifiElem">&wifi.elem.label;</label>
+    <textbox id="textWifiElem" preference="wifi.elem"/>
+    <label accesskey="&wifi.auto_submit.accesskey;" control="textWifiAutoSubmit">&wifi.auto_submit.label;</label>
+    <checkbox id="textWifiAutoSubmit" preference="wifi.auto_submit"/>
+
+    <label accesskey="&wifi.debug.accesskey;" control="textWifiDebug">&wifi.debug.label;</label>
+    <checkbox id="textWifiDebug" preference="wifi.debug"/>
+  </prefpane>
+
+  <!-- gpsd monitoring configuration -->
+  <prefpane id="pane2" label="&pane2.title;" flex="1">
+    <preferences>
+      <preference id="gpsd.elem" name="extensions.wps_logger.gpsd.elem" type="string"/>
+      <preference id="gpsd.auto_submit" name="extensions.wps_logger.gpsd.auto_submit" type="bool"/>
+      <preference id="gpsd.debug" name="extensions.wps_logger.gpsd.debug" type="bool"/>
+    </preferences>
+
+    <!-- gpsd monitoring configuration UI -->
+    <label accesskey="&gpsd.elem.accesskey;" control="textGpsdElem">&gpsd.elem.label;</label>
+    <textbox id="textGpsdElem" preference="gpsd.elem"/>
+    <label accesskey="&gpsd.auto_submit.accesskey;" control="textGpsdAutoSubmit">&gpsd.auto_submit.label;</label>
+    <checkbox id="textGpsdAutoSubmit" preference="gpsd.auto_submit"/>
+
+    <label accesskey="&gpsd.debug.accesskey;" control="textGpsdDebug">&gpsd.debug.label;</label>
+    <checkbox id="textGpsdDebug" preference="gpsd.debug"/>
+  </prefpane>
+</prefwindow>

@@ -1,18 +1,18 @@
-function getInputsByType(target, type_name, id_name) {
-  var elem_list = target.getElementsByTagName('input');
+function getInputsByType(target, typeName, idName) {
+  var elemList = target.getElementsByTagName('input');
 
-  for (var i = 0; i < elem_list.length; i++) {
-    var elem = elem_list[i];
+  for (var i = 0; i < elemList.length; i++) {
+    var elem = elemList[i];
 
-    if (elem.getAttribute('type') == type_name) {
-      if(!(typeof this.id_name === "undefined" || this.id_name === null)
-          & this.id_name != elem.getAttribute('id')) {
+    if (elem.getAttribute('type') == typeName) {
+      if(!(typeof this.idName === "undefined" || this.idName === null)
+          & this.idName != elem.getAttribute('id')) {
         continue;
       }
       return elem;
     }
   }
-  alert('element#' + this.wifi_elem_id + ' is not defined in this page');
+  alert('element#' + this.wifiElemId + ' is not defined in this page');
   return null;
 };
 
@@ -48,43 +48,57 @@ WifiListener.prototype =
 };
 
 function WifiMonitor() {
-  this.prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch).QueryInterface(Ci.nsIPrefService);
-  this.prefService.setCharPref("wps_logger.wifi.elem", "wifi_towers");
-  this.prefService.setBoolPref("wps_logger.wifi.auto_submit", false);
-  this.wifi_listener = null;
+  this.prefService = Cc["@mozilla.org/preferences-service;1"]
+    .getService(Ci.nsIPrefService)
+    .getBranch("extensions.wps_logger.")
+    .QueryInterface(Ci.nsIPrefBranch2);
+  this.wifiListener = null;
 };
 
 WifiMonitor.prototype = {
   //
   startWatching: function() {
-    this.wifi_elem_id = this.prefService.getCharPref("wps_logger.wifi.elem");
-    this.auto_submit = this.prefService.getBoolPref("wps_logger.wifi.auto_submit");
+    this.wifiElemId = this.prefService.getCharPref("wifi.elem");
+    this.autoSubmit = this.prefService.getBoolPref("wifi.auto_submit");
+    this.debug = this.prefService.getBoolPref("wifi.debug");
     netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
-    if(typeof this.wifi_listener === "undefined" || this.wifi_listener === null) {
-      var wifi_towers = content.document.getElementById(this.wifi_elem_id);
-      if (typeof wifi_towers === "undefined" || wifi_towers === null) {
-        alert('element#' + this.wifi_elem_id + ' is not defined in this page');
+    if(typeof this.wifiListener === "undefined" || this.wifiListener === null) {
+      var wifiTowers = content.document.getElementById(this.wifiElemId);
+      if (typeof wifiTowers === "undefined" || wifiTowers === null) {
+        alert('element#' + this.wifiElemId + ' is not defined in this page');
         return;
       }
       if (this.auto_submit) {
-        this.wifi_listener = new WifiListener(wifi_towers, getInputsByType(content.document, 'submit'));
+        this.wifiListener = new WifiListener(wifiTowers, getInputsByType(content.document, 'submit'));
       } else {
-        this.wifi_listener = new WifiListener(wifi_towers);
+        this.wifiListener = new WifiListener(wifiTowers);
       }
     }
     if(typeof this.service === "undefined" || this.service === null) {
       this.service = Cc["@mozilla.org/wifi/monitor;1"].getService(Ci.nsIWifiMonitor);
     }
-    this.service.startWatching(this.wifi_listener);
+    this.service.startWatching(this.wifiListener);
+    this.warn("WiFi monitoring started");
   },
   stopWatching: function() {
     //netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
-    this.service.stopWatching(this.wifi_listener);
-    this.wifi_listener = null;
+    if(!(typeof this.service === "undefined" || this.service === null)) {
+      this.service.stopWatching(this.wifiListener);
+    }
+    this.wifiListener = null;
+    this.warn("WiFi monitoring stopped");
   },
   restartWatching: function() {
     this.stopWatching();
     this.startWatching();
+  },
+  // error message
+  warn: function(message) {
+    if (this.debug) {
+      window.openDialog("chrome://wps_logger/content/warning.xul", "",
+          "chrome, dialog, modal, resizable=yes",
+          {title: "WifiMonitor", message: message});
+    }
   },
 };
 
@@ -108,27 +122,29 @@ GPSDListener.prototype = {
 
 function GPSDMonitor() {
   netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
-  this.prefService = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch).QueryInterface(Ci.nsIPrefService);
-  this.prefService.setCharPref("wps_logger.gpsd.elem", "gpsd_tpv");
-  this.prefService.setBoolPref("wps_logger.gpsd.auto_submit", false);
-  this.gpsd_listener = null;
+  this.prefService = Cc["@mozilla.org/preferences-service;1"]
+    .getService(Ci.nsIPrefService)
+    .getBranch("extensions.wps_logger.")
+    .QueryInterface(Ci.nsIPrefBranch2);
+  this.gpsdListener = null;
 };
 
 GPSDMonitor.prototype = {
   //
   startWatching: function() {
-    this.gpsd_elem_id = this.prefService.getCharPref("wps_logger.gpsd.elem");
-    this.auto_submit = this.prefService.getBoolPref("wps_logger.gpsd.auto_submit");
-    if(typeof this.gpsd_listener === "undefined" || this.gpsd_listener === null) {
-      var gpsd_tpv = content.document.getElementById(this.gpsd_elem_id);
-      if (typeof gpsd_tpv === "undefined" || gpsd_tpv === null) {
-        alert('element#' + this.gpsd_elem_id + ' is not defined in this page');
+    this.gpsdElemId = this.prefService.getCharPref("gpsd.elem");
+    this.auto_submit = this.prefService.getBoolPref("gpsd.auto_submit");
+    this.debug = this.prefService.getBoolPref("gpsd.debug");
+    if(typeof this.gpsdListener === "undefined" || this.gpsdListener === null) {
+      var gpsdTpv = content.document.getElementById(this.gpsdElemId);
+      if (typeof gpsdTpv === "undefined" || gpsdTpv === null) {
+        alert('element#' + this.gpsdElemId + ' is not defined in this page');
         return;
       }
-      if (this.auto_submit) {
-        this.gpsd_listener = new GPSDListener(gpsd_tpv, getInputsByType(content.document, 'submit'));
+      if (this.autoSubmit) {
+        this.gpsdListener = new GPSDListener(gpsdTpv, getInputsByType(content.document, 'submit'));
       } else {
-        this.gpsd_listener = new GPSDListener(gpsd_tpv);
+        this.gpsdListener = new GPSDListener(gpsdTpv);
       }
     }
     netscape.security.PrivilegeManager.enablePrivilege('UniversalXPConnect');
@@ -152,8 +168,8 @@ GPSDMonitor.prototype = {
     var command = "?WATCH={\"enable\":true,\"json\":true,\"nmea\":true}\n";
     this.output_stream.write(command, command.length);
 
-    var gpsd_listener = this.gpsd_listener;
-    var data_listener = {
+    var gpsdListener = this.gpsdListener;
+    var dataListener = {
       onStartRequest: function(request, context) {},
       onStopRequest: function(request, context, status) {},
       onDataAvailable: function(request, context, input_stream, offset, count) {
@@ -169,7 +185,7 @@ GPSDMonitor.prototype = {
             var str = jsons[i].replace("\r\n", "");
             var data = JSON.parse(str);
             if (data["class"] == "TPV") {
-              gpsd_listener.update(str);
+              gpsdListener.update(str);
             }
           }
         }
@@ -178,7 +194,8 @@ GPSDMonitor.prototype = {
 
     var pump = Cc["@mozilla.org/network/input-stream-pump;1"].createInstance(Ci.nsIInputStreamPump);
     pump.init(this.input_stream, -1, -1, 0, 0, false);
-    pump.asyncRead(data_listener, null);
+    pump.asyncRead(dataListener, null);
+    this.warn("WiFi monitoring started");
   },
 
   //
@@ -186,7 +203,8 @@ GPSDMonitor.prototype = {
     this.output_stream.close();
     this.input_stream.close();
     this.transport.close(Components.results.NS_OK);
-    this.gpsd_listener = null;
+    this.gpsdListener = null;
+    this.warn("WiFi monitoring stopped");
   },
 
   //
@@ -194,11 +212,20 @@ GPSDMonitor.prototype = {
     this.stopWatching();
     this.startWatching();
   },
+
+  // error message
+  warn: function(message) {
+    if (this.debug) {
+      window.openDialog("chrome://wps_logger/content/warning.xul", "",
+          "chrome, dialog, modal, resizable=yes",
+          {title: "GPSDMonitor", message: message});
+    }
+  },
 };
 
 var wifi_monitor = new WifiMonitor();
 var gpsd_monitor = new GPSDMonitor();
 
 function openSetupDialog() {
-  window.openDialog("chrome://wps_logger/content/wps_logger_setup.xul", "setup_window", "");
+  window.openDialog("chrome://wps_logger/content/wps_logger_config.xul", "wps_logger-preferences", "");
 };

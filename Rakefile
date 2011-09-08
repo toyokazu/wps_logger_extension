@@ -1,7 +1,7 @@
 task :default => ["wps_logger.xpi"]
 
 file "wps_logger.xpi" do
-  sh "jar cvf wps_logger.xpi content skin chrome.manifest install.rdf"
+  sh "jar -J-Dfile.encoding=UTF8 cvf wps_logger.xpi chrome chrome.manifest defaults install.rdf"
 end
 
 task :clean do

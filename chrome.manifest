@@ -1,4 +1,7 @@
-content   wps_logger    content/wps_logger/
-skin      wps_logger    classic/1.0   skin/
+content   wps_logger    chrome/content/
+skin      wps_logger    classic/1.0   chrome/skin/
+locale    wps_logger    en-US         chrome/locale/en-US/
+locale    wps_logger    ja-JP         chrome/locale/ja-JP/
+
 overlay chrome://browser/content/browser.xul chrome://wps_logger/content/wps_logger_toolbar.xul
 style chrome://global/content/customizeToolbar.xul chrome://wps_logger/skin/wps_logger.css

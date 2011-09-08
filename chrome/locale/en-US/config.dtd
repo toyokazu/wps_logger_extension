@@ -1,0 +1,25 @@
+<!ENTITY prefwindow.title "WpsLogger Configurations">
+
+
+<!ENTITY pane1.title "WiFi Monitor Configuration">
+<!ENTITY pane2.title "GPSD Monitor Configuration">
+
+<!ENTITY wifi.elem.label "Output Element ID: ">
+<!ENTITY wifi.elem.accesskey "A">
+
+<!ENTITY wifi.auto_submit.label "Auto-Submission: ">
+<!ENTITY wifi.auto_submit.accesskey "B">
+
+<!ENTITY wifi.debug.label "Debug Mode: ">
+<!ENTITY wifi.debug.accesskey "C">
+
+
+
+<!ENTITY gpsd.elem.label "Output Element ID: ">
+<!ENTITY gpsd.elem.accesskey "D">
+
+<!ENTITY gpsd.auto_submit.label "Auto-Submission: ">
+<!ENTITY gpsd.auto_submit.accesskey "E">
+
+<!ENTITY gpsd.debug.label "Debug Mode: ">
+<!ENTITY gpsd.debug.accesskey "F">

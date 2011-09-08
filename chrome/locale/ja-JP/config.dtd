@@ -1,0 +1,25 @@
+<!ENTITY prefwindow.title "WpsLogger 設定">
+
+
+<!ENTITY pane1.title "WiFi Monitor の設定">
+<!ENTITY pane2.title "GPSD Monitor の設定">
+
+<!ENTITY wifi.elem.label "出力要素のID: ">
+<!ENTITY wifi.elem.accesskey "A">
+
+<!ENTITY wifi.auto_submit.label "自動アップロード: ">
+<!ENTITY wifi.auto_submit.accesskey "B">
+
+<!ENTITY wifi.debug.label "デバッグモード: ">
+<!ENTITY wifi.debug.accesskey "C">
+
+
+
+<!ENTITY gpsd.elem.label "出力要素のID: ">
+<!ENTITY gpsd.elem.accesskey "D">
+
+<!ENTITY gpsd.auto_submit.label "自動アップロード: ">
+<!ENTITY gpsd.auto_submit.accesskey "E">
+
+<!ENTITY gpsd.debug.label "デバッグモード: ">
+<!ENTITY gpsd.debug.accesskey "F">
